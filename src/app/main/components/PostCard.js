@@ -2,17 +2,27 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postActions } from '../../store/actions';
-import { Tooltip } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import { 
+    Tooltip, 
+    Card, 
+    CardHeader, 
+    CardContent, 
+    Avatar, 
+    IconButton, 
+    Typography, 
+    Paper, 
+    Slide, 
+    Button, 
+    TextField, 
+    Grid, 
+    Dialog, 
+    DialogTitle, 
+    DialogActions, 
+    DialogContent, 
+    DialogContentText 
+} from '@material-ui/core';
 import { red } from "@material-ui/core/colors";
-import { Paper, TextField } from "@material-ui/core";
-import Grid from '@material-ui/core/Grid';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MoneyIcon from '@material-ui/icons/Money';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -21,13 +31,8 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import MessageIcon from '@material-ui/icons/Message';
 import SendIcon from '@material-ui/icons/Send';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
-import Button from '@material-ui/core/Button';
+import { months, messageActionTypes} from '../../configs';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -93,13 +98,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const PostCard = ({
     _id,
     title, 
     description,
     author, 
-    active, 
     messages, 
     price,
     isAuthor,
@@ -107,35 +110,38 @@ const PostCard = ({
     willDeliver,
     createdAt
 }) => {
+
     const dispatch = useDispatch();
+    const { user } = useSelector(state => state.authorization);
+    const history = useHistory();
+    
     //dialog control 
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
     
-    const handleClose = () => {
+    const  handleClose  = () => {
         setOpen(false);
     };
 
-
     const classes = useStyles();
+    
+    /**
+     * to get a string format data.
+     */
     const stringDate = useMemo(() => {
         const date = new Date(createdAt);
         const stringDate = months[date.getMonth()] + ' ' + (date.getDate() - 1) + ", " + date.getFullYear();
         return stringDate;
     }, [])
-    const { user } = useSelector(state => state.authorization);
-    const history = useHistory();
+    
+    
     const [message, setMessage] = useState("");
-    const [expanded, setExpanded] = React.useState(false);
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
 
     const onChangeMessage = useCallback((e) => {
         const message = e.target.value;
-        setMessage(message)
+        setMessage(message);
     }, [message]);
 
     //post delete handler
@@ -150,9 +156,15 @@ const PostCard = ({
             dispatch(postActions.sendMessage(_id, message));
             setMessage('');
         } else {
+            dispatch({type: messageActionTypes.SET_MESSAGE, payload: {
+                message: 'You have to login first.',
+                success: true,
+                info: true
+            }})
             history.push('/signin');
         }
-    }, [message])
+    }, [message]);
+
     return (
         <Grid container item sm={6}>
             <Card className={classes.root}>
@@ -250,10 +262,10 @@ const PostCard = ({
                 </CardContent>
             </Card>
             <Dialog
-                open={open}
-                TransitionComponent={Transition}
+                open={ open }
+                TransitionComponent={ Transition }
                 keepMounted
-                onClose={handleClose}
+                onClose={ handleClose }
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
@@ -264,7 +276,7 @@ const PostCard = ({
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={ handleClose } color="primary">
                         Disagree
                     </Button>
                     <Button onClick={() => handleDelete(_id)} color="primary">

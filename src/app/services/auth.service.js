@@ -2,6 +2,12 @@ import axios from "axios";
 import { API_URL } from '../configs'
 import { setToken, removeToken, makeheaders } from '../helpers/util';
 
+/**
+ * 
+ * @param {username} username 
+ * @param {password} password 
+ * to control the register
+ */
 const register = (username, password) => {
     return  new Promise((resolve, reject) => {
         axios.post(API_URL + "/users/register", {
@@ -21,6 +27,12 @@ const register = (username, password) => {
     });
 };
 
+/**
+ * 
+ * @param {username} username 
+ * @param {password} password 
+ * to control the login
+ */
 const login = (username, password) => {
     return  new Promise((resolve, reject) => {
         axios.post(API_URL + "/users/login", {
@@ -42,7 +54,7 @@ const login = (username, password) => {
 };
 
 /**
- * which lets you know if there's a current user logged in
+ * which lets the app know if there's a user logged in now by checking the token stored in localstorage
  */
 const isLoggedIn = () => {
     return new Promise((resolve, reject) => {
@@ -60,6 +72,9 @@ const isLoggedIn = () => {
     }) 
 };
 
+/**
+ * log out
+ */
 const logout = () => {
     removeToken();
 };

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import Form from "react-validation/build/form";
@@ -6,6 +6,7 @@ import Input from "react-validation/build/input";
 import Textarea from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { postActions } from '../../store/actions';
+import { messageActionTypes } from '../../configs';
 
 const Poster = () => {
     const form = useRef();
@@ -16,9 +17,10 @@ const Poster = () => {
     const [price, setPrice] = useState("");
     const [location, setLocation] = useState("");
     const [willDeliver, setWillDeliver] = useState(false);
-
+    
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.authorization);
+    const { isAddProcessing } = useSelector(state => state.posts);
     const history = useHistory();
 
     const onChangeTitle = useCallback((e) => {
@@ -65,11 +67,15 @@ const Poster = () => {
                 setDescription('');
             }
         } else {
+            dispatch({type: messageActionTypes.SET_MESSAGE, payload: {
+                message: 'You have to login first.',
+                success: true,
+                info: true
+            }})
             history.push('/signin');
         }
     }, [title, description, price, location, willDeliver, user]);
 
-    const { isAddProcessing } = useSelector(state => state.posts);
 
     return (
         <div className="poster-wrapper container">

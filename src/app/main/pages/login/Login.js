@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import Form from "react-validation/build/form";
@@ -7,8 +7,6 @@ import CheckButton from "react-validation/build/button";
 import { authActions } from "../../../store/actions";
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from "@material-ui/core/IconButton";
-import { messageActionTypes } from '../../../configs';
-import { CircularProgress, Button } from '@material-ui/core';
 
 const required = (value) => {
     if (!value) {
@@ -30,7 +28,6 @@ const Login = () => {
 
     const { isLoggedIn } = useSelector(state => state.authorization);
     const { isProcessing } = useSelector(state => state.authorization);
-    const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
 
     const onChangeUsername = useCallback((e) => {
@@ -54,16 +51,7 @@ const Login = () => {
     const gotoHomePage = () => {
         return history.push('/');
     }
-
-    
-
-    useEffect(() => {
-        const timeId = setTimeout(() => dispatch({type: messageActionTypes.CLEAR_MESSAGE}), 4000)
-        return () => {
-            clearTimeout(timeId);
-        }
-    }, [message])
-
+ 
     if (isLoggedIn) {
         return <Redirect to="/" />
     }
@@ -81,13 +69,6 @@ const Login = () => {
                     alt="profile-img"
                     className="profile-img-card"
                 />
-                {message && (
-                    <div className="form-group">
-                    <div className="alert alert-danger text-center pl-5 pr-5" role="alert">
-                        {message}
-                    </div>
-                    </div>
-                )}
                 <Form onSubmit={handleLogin} ref={form}>
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
@@ -124,7 +105,6 @@ const Login = () => {
                     <div className="form-group text-center">
                         Don't have an account? <Link to={'/signup'}>Create One</Link>
                     </div>
-
                     
                     <CheckButton style={{ display: "none" }} ref={checkBtn} />
                 </Form>

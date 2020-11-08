@@ -9,13 +9,13 @@ const getAllPosts = () => (dispatch) => {
             type: postActionTypes.FETCH_POSTS_SUCCESS,
             payload: response.posts
         });
-        dispatch({
-            type: messageActionTypes.SET_MESSAGE,
-            payload : {
-                message: "All posts successfully fetched",
-                success: true
-            }
-        });
+        // dispatch({
+        //     type: messageActionTypes.SET_MESSAGE,
+        //     payload : {
+        //         message: "All posts successfully fetched",
+        //         success: true
+        //     }
+        // });
 
     })
     .catch(error => {

@@ -7,7 +7,7 @@ export default function (state = initialState, action) {
 
     switch (type) {
         case messageActionTypes.SET_MESSAGE:
-            return { message: payload.message, success: payload.success };
+            return { message: payload.message, success: payload.success, info: payload.info };
 
         case messageActionTypes.CLEAR_MESSAGE:
             return { message: "" };

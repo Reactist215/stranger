@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { Link, Redirect } from 'react-router-dom';
@@ -8,7 +8,6 @@ import CheckButton from "react-validation/build/button";
 import { authActions } from "../../../store/actions";
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from "@material-ui/core/IconButton";
-import { messageActionTypes } from '../../../configs';
 
 const required = (value) => {
     if (!value) {
@@ -57,7 +56,6 @@ const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const { message } = useSelector(state => state.message);
     const { isLoggedIn } = useSelector(state => state.authorization);
     const { isProcessing } = useSelector(state => state.authorization);
     const dispatch = useDispatch();
@@ -86,13 +84,6 @@ const Register = () => {
     const gotoHomePage = () => {
         return history.push('/');
     }
-    
-    useEffect(() => {
-        const timeId = setTimeout(() => dispatch({type: messageActionTypes.CLEAR_MESSAGE}), 3000)
-        return () => {
-            clearTimeout(timeId);
-        }
-    }, [message])
 
     if (isLoggedIn) {
         return <Redirect to="/" />
@@ -110,15 +101,7 @@ const Register = () => {
                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                     alt="profile-img"
                     className="profile-img-card"
-                    />
-                {message && (
-                    <div className="form-group">
-                    <div className={ isProcessing ? "alert alert-success" : "alert alert-danger text-center pl-5 pr-5" } role="alert">
-                        {message}
-                    </div>
-                    </div>
-                )}
-
+                />
                 <Form onSubmit={handleRegister} ref={form}>
                     <div>
                         <div className="form-group">

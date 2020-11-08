@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PostCard } from '../components';
 import { makeStyles } from "@material-ui/core/styles";
+// import { SearchIcon } from '@material-ui/icons';
+import { Paper, TextField, Container, Grid } from "@material-ui/core";
+import { PostCard } from '../components';
 import { postActions } from '../../store/actions';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import SearchIcon from '@material-ui/icons/Search';
-import { Paper, TextField } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         width: '95%',
         marginBottom: '20px',
@@ -46,25 +44,40 @@ const useStyles = makeStyles((theme) => ({
 
 const PostAlbum = () => {
     const classes = useStyles();
+
+    //to get posts state and dispatch from the redux
     const { posts } = useSelector(state => state.posts);
+    const dispatch = useDispatch();
+    
+    //search key
     const [searchKey, setSearchKey] = useState('');
     const [filteredPosts, setFilteredPosts] = useState([]);
 
-    const dispatch = useDispatch();
     const handleChange = useCallback((e) => {
         const searchKey = e.target.value;
         setSearchKey(searchKey);
     }, []);
-    
+
+
+    /**
+     * return boolean depending on whether the specific post includes the searchkey.
+     */
     const postMatches = useCallback((post, searchKey) => {
         return post.title.toLowerCase().includes(searchKey) ||
         post.description.toLowerCase().includes(searchKey)
     }, []);
     
+    /**
+     * to fetch the all the posts data: useEffect function works in a similar way to componentDidMount and componentDidUpdate in class component.
+     * 
+     */
     useEffect(() => {
         dispatch(postActions.getAllPosts());
     }, [])
 
+    /**
+     * Whenever the posts retrieving from the server and the searchkey change, the callback function triggers to return the filtered posts.
+     */
     useEffect(() => {
         setFilteredPosts(posts.filter(post => postMatches(post, searchKey)));
     }, [posts, searchKey])
@@ -92,7 +105,7 @@ const PostAlbum = () => {
                         value={searchKey}
                         onChange={handleChange}
                     />
-                    <SearchIcon className="img-btn"/>
+                    {/* <SearchIcon className="img-btn"/> */}
                 </Paper>
             </form>
             <Grid container>

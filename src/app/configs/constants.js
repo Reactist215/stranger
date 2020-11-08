@@ -33,3 +33,5 @@ export const postActionTypes = {
     SEND_MESSAGE_FAILURE : 'SEND_MESSAGE_FAILURE',
 }
 
+export const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
