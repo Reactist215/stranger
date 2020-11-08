@@ -1,0 +1,1 @@
+export const API_URL = "https://strangers-things.herokuapp.com/api/COHORT-NAME";

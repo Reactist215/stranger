@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+  margin: 0const;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(63, 81, 181, 0.2)
+}
+@import './page.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
