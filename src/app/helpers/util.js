@@ -13,10 +13,15 @@ export const removeToken = () => {
     localStorage.removeItem('access_token'); 
 }
 
+/**
+ * to retrieve the token stored in localstorage
+ */
 export const getToken = () => {
     return localStorage.getItem('access_token');
 };
-
+/**
+ * to set the header authorization token for the axios
+ */
 export const makeheaders = () => {
     const token = getToken();
     if (token) {

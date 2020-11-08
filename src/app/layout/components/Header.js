@@ -1,21 +1,23 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { authActions, postActions } from "../../store/actions";
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
+import { 
+    AppBar,
+    Toolbar,
+    Typography,
+    Button,
+    MenuItem,
+    ClickAwayListener,
+    Grow,
+    Paper,
+    Popper,
+    MenuList,
+} from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuList from '@material-ui/core/MenuList';
+import { authActions, postActions } from "../../store/actions";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
     },

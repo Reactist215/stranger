@@ -5,9 +5,9 @@ import { Link, Redirect } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { authActions } from "../../../store/actions";
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from "@material-ui/core/IconButton";
+import { authActions } from "../../../store/actions";
 
 const required = (value) => {
     if (!value) {

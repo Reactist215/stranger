@@ -1,8 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
-// import { SearchIcon } from '@material-ui/icons';
-import { Paper, TextField, Container, Grid } from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
+import { 
+    Paper, 
+    TextField, 
+    Container, 
+    Grid 
+} from "@material-ui/core";
 import { PostCard } from '../components';
 import { postActions } from '../../store/actions';
 
@@ -105,7 +110,7 @@ const PostAlbum = () => {
                         value={searchKey}
                         onChange={handleChange}
                     />
-                    {/* <SearchIcon className="img-btn"/> */}
+                    <SearchIcon className="img-btn"/>
                 </Paper>
             </form>
             <Grid container>

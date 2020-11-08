@@ -1,5 +1,5 @@
 import { authActionTypes, messageActionTypes } from '../../configs';
-import { AuthService, PostService } from '../../services';
+import { AuthService } from '../../services';
 
 const login = (username, password) => (dispatch) => {
     dispatch({type: authActionTypes.LOGIN_REQUEST});

@@ -1,6 +1,5 @@
 import { authActionTypes } from '../../configs';
 
-
 const initialState = { 
     isLoggedIn: false, 
     user: null, 

@@ -1,14 +1,13 @@
 import React from 'react';
-import { Poster, PostAlbum } from '../../components'
-import Layout from '../../../layout/Layout';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import { Container, Grid } from '@material-ui/core';
+import Layout from '../../../layout/Layout';
+import { Poster, PostAlbum } from '../../components'
 
 const useStyles = makeStyles(() => ({
     root: {
         minHeight: `calc(100vh - 125px)`,
-        margin: '90px 10px 0',
+        margin: '90px 0 0',
         maxWidth: '100%'
     }
 }));
