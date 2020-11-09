@@ -3,6 +3,11 @@ import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
+/**
+ * This makestyles belongs to Material UI.
+ * This encapsulates the component styling.
+ * You can refer to the Material UI makeStyles. It would be helpful to learn Mat.
+ */
 const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,

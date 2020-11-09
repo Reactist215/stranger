@@ -5,7 +5,6 @@ import HomePage from './main/pages/home/HomePage';
 import Page404 from './main/pages/Page404';
 import Login from './main/pages/login/Login';
 import Resgister from './main/pages/register/Register';
-import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
     return (

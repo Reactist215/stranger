@@ -6,6 +6,13 @@ const initialState = {
     isProcessing: false 
 };
 
+/**
+ * 
+ * @param {*} state 
+ * @param {*} action 
+ * This is the part where the disptched auth action is handled to change the redux store, 
+ * leading to rerender the related components.
+ */
 const authorization = (state = initialState, action) => {
     const { type, payload } = action;
     switch(type) {

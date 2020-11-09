@@ -5,13 +5,20 @@ const initialState = {
     posts: []
 };
 
+/**
+ * 
+ * @param {*} state 
+ * @param {*} action 
+ * This is the part where the disptched post-related action(fetch, create, update, delete, messaging) is handled to change the redux store, 
+ * leading to rerender the related components.
+ */
+
 const posts = (state = initialState, action) => {
     const { type, payload } = action;
     switch(type) {
         case postActionTypes.FETCH_POSTS_REQUEST:
         case postActionTypes.DELETE_POST_REQUEST:
         case postActionTypes.SEND_MESSAGE_REQUEST:{
-            console.log('delete post request', state)
             return {
                 ...state,
                 isProcessing: true
@@ -54,7 +61,9 @@ const posts = (state = initialState, action) => {
                 posts: newPosts
             }
         case postActionTypes.SEND_MESSAGE_SUCCESS:
-            state.posts[state.posts.findIndex(post => post._id === payload.id)].messages.push(payload.message); 
+            state.posts[
+                state.posts.findIndex(post => post._id === payload.id)
+            ].messages.push(payload.message); 
             return {
                 ...state,
                 isProcessing: false,

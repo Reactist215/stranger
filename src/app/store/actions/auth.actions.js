@@ -1,6 +1,15 @@
 import { authActionTypes, messageActionTypes } from '../../configs';
 import { AuthService } from '../../services';
 
+/**
+ * 
+ * @param {*} username 
+ * @param {*} password 
+ * This is login action which is not plain object but function.
+ * It is handled by Redux thunk middleware.
+ * Redux thunk is very easy and comfortable to use when you have to interact with the server-side.
+ * There is another Redux saga. It will be great help in implementing much more complicated logic.
+ */
 const login = (username, password) => (dispatch) => {
     dispatch({type: authActionTypes.LOGIN_REQUEST});
     return AuthService.login(username, password)
